@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Koodak";
+    src: url('/assets/font/B-Koodak.ttf');
+}
+
+@font-face {
+    font-family: "Seven Segment";
+    src: url('/assets/font/7-Segment.ttf');
+}
+
+@font-face {
+    font-family: "Arial Round";
+    src: url('/assets/font/Arial-Round.ttf');
+}

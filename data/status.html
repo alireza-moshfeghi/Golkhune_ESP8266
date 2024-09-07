@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#66cdaa">
+    <meta name="msapplication-navbutton-color" content="#66cdaa">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golkhune | گلخونه</title>
+    <link rel="stylesheet" href="assets/style/bootstrap.css">
+    <link rel="stylesheet" href="assets/style/font.css">
+    <script src="assets/script/bootstrap.js"></script>
+    <style>
+        * {
+            transition-duration: 0.5s;
+        }
+        .koodak {
+            font-family: 'Koodak', cursive;
+            font-size: 2.7vh;
+        }
+        .arial {
+            font-family: 'Arial Round', cursive;
+            font-size: 2.7vh;
+        }
+        .nav-title {
+            font-size: 24px;
+            line-height: 0;
+            margin-top: 0;
+        }
+        .col-cu {
+            width: 34.5%;
+        }
+        .item-title {
+            font-family: 'Koodak', cursive;
+            color: #66cdaa;
+            font-size: 3.2vh;
+            font-weight: bold;
+        }
+        .item-value {
+            font-family: 'Seven Segment', cursive;
+            color: gray;
+            text-align: center;
+            font-size: 7.5vh;
+        }
+        @media (max-width: 575.98px) {
+            .nav-title {
+                font-size: 25px;
+                line-height: 0;
+                margin-top: 4.5px;
+            }
+            .col-cu {
+                width: 88%;
+            }
+            .item-title {
+                font-family: 'Koodak', cursive;
+                color: #66cdaa;
+                font-size: 3vh;
+                font-weight: bold;
+            }
+            .item-value {
+                color: gray;
+                text-align: center;
+                font-size: 6.4vh;
+            }
+        }
+    </style>
+    <script>
+        var stat = false;
+        function change_mode() {
+            if (stat == false) {
+                document.getElementById("dark-light").src = "assets/image/sun.png";
+                document.getElementById("navbar").style.backgroundColor = "#1a344d";
+                document.getElementById("body").style.backgroundColor = "#2c3e50";
+                var elms = document.querySelectorAll("[id='item']");
+                for(var i = 0; i < elms.length; i++) {
+                    elms[i].style.backgroundColor = "#0e2338";
+                }
+                elms = document.querySelectorAll("[id='title']");
+                for(var i = 0; i < elms.length; i++) {
+                    elms[i].style.color = "#3371d2";
+                }
+                document.getElementById("temp_pic").src = "assets/image/temperature2.png";
+                document.getElementById("temperature").style.color = "#ffffff";
+                document.getElementById("humidity_pic").src = "assets/image/humidity2.png";
+                document.getElementById("humidity").style.color = "#ffffff";
+                document.getElementById("bright_pic").src = "assets/image/brightness2.png";
+                document.getElementById("brightness").style.color = "#ffffff";
+                document.getElementById("uptime_pic").src = "assets/image/uptime2.png";
+                document.getElementById("uptime").style.color = "#ffffff";
+                document.getElementById("graph1_pic").src = "assets/image/graph2.png";
+                document.getElementById("min_max_temperature").style.color = "#ffffff";
+                document.getElementById("graph2_pic").src = "assets/image/graph2.png";
+                document.getElementById("min_max_humidity").style.color = "#ffffff";
+                document.getElementsByTagName('meta')["theme-color"].content = "#1a344d";
+                document.getElementsByTagName('meta')["msapplication-navbutton-color"].content = "#1a344d";
+                stat = true;
+            }
+            else {
+                document.getElementById("dark-light").src = "assets/image/moon.png";
+                document.getElementById("navbar").style.backgroundColor = "#66cdaa";
+                document.getElementById("body").style.backgroundColor = "#f1f2f6";
+                var elms = document.querySelectorAll("[id='item']");
+                for(var i = 0; i < elms.length; i++) {
+                    elms[i].style.backgroundColor = "#f3f7f8";
+                }
+                elms = document.querySelectorAll("[id='title']");
+                for(var i = 0; i < elms.length; i++) {
+                    elms[i].style.color = "#66cdaa";
+                }
+                document.getElementById("temp_pic").src = "assets/image/temperature.png";
+                document.getElementById("temperature").style.color = "gray";
+                document.getElementById("humidity_pic").src = "assets/image/humidity.png";
+                document.getElementById("humidity").style.color = "gray";
+                document.getElementById("bright_pic").src = "assets/image/brightness.png";
+                document.getElementById("brightness").style.color = "gray";
+                document.getElementById("uptime_pic").src = "assets/image/uptime.png";
+                document.getElementById("uptime").style.color = "gray";
+                document.getElementById("graph1_pic").src = "assets/image/graph.png";
+                document.getElementById("min_max_temperature").style.color = "gray";
+                document.getElementById("graph2_pic").src = "assets/image/graph.png";
+                document.getElementById("min_max_humidity").style.color = "gray";
+                document.getElementsByTagName('meta')["theme-color"].content = "#66cdaa";
+                document.getElementsByTagName('meta')["msapplication-navbutton-color"].content = "#66cdaa";
+                stat = false;
+            }
+        }
+        function temperature_refresh() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("temperature").innerHTML = this.responseText;
+                document.getElementById("nav_title").innerHTML = "گلخونه";
+            }
+            else if (this.readyState == 4 && this.status == 0)
+                document.getElementById("nav_title").innerHTML = "درحال اتصال...";
+            };
+            xhttp.open("GET", "/temperature", true);
+            xhttp.send();
+        }
+        function humidity_refresh() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("humidity").innerHTML = this.responseText;
+                document.getElementById("nav_title").innerHTML = "گلخونه";
+            }
+            else if (this.readyState == 4 && this.status == 0)
+                document.getElementById("nav_title").innerHTML = "درحال اتصال...";
+            };
+            xhttp.open("GET", "/humidity", true);
+            xhttp.send();
+        }
+        function brightness_refresh() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("brightness").innerHTML = this.responseText;
+                document.getElementById("nav_title").innerHTML = "گلخونه";
+            }
+            else if (this.readyState == 4 && this.status == 0)
+                document.getElementById("nav_title").innerHTML = "درحال اتصال...";
+            };
+            xhttp.open("GET", "/brightness", true);
+            xhttp.send();
+        }
+        function uptime_refresh() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("uptime").innerHTML = this.responseText;
+                document.getElementById("nav_title").innerHTML = "گلخونه";
+            }
+            else if (this.readyState == 4 && this.status == 0)
+                document.getElementById("nav_title").innerHTML = "درحال اتصال...";
+            };
+            xhttp.open("GET", "/uptime", true);
+            xhttp.send();
+        }
+        function min_max_temperature_refresh() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("min_max_temperature").innerHTML = this.responseText;
+                document.getElementById("nav_title").innerHTML = "گلخونه";
+            }
+            else if (this.readyState == 4 && this.status == 0)
+                document.getElementById("nav_title").innerHTML = "درحال اتصال...";
+            };
+            xhttp.open("GET", "/min_max_temperature", true);
+            xhttp.send();
+        }
+        function min_max_humidity_refresh() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("min_max_humidity").innerHTML = this.responseText;
+                document.getElementById("nav_title").innerHTML = "گلخونه";
+            }
+            else if (this.readyState == 4 && this.status == 0)
+                document.getElementById("nav_title").innerHTML = "درحال اتصال...";
+            };
+            xhttp.open("GET", "/min_max_humidity", true);
+            xhttp.send();
+        }
+        setInterval(temperature_refresh, 1000);
+        setInterval(humidity_refresh, 1000);
+        setInterval(brightness_refresh, 1000);
+        setInterval(uptime_refresh, 1000);
+        setInterval(min_max_temperature_refresh, 1000);
+        setInterval(min_max_humidity_refresh, 1000);
+        window.onload=temperature_refresh();
+        window.onload=humidity_refresh();
+        window.onload=brightness_refresh();
+        window.onload=uptime_refresh();
+        window.onload=min_max_temperature_refresh();
+        window.onload=min_max_humidity_refresh();
+    </script>
+</head>
+
+<body id="body" style="background-color: #f1f2f6;">
+    <nav id="navbar" class="navbar navbar-expand-sm navbar-dark" style="background-color: #66cdaa;">
+        <div class="container-fluid">
+            <div style="width: 56px; height: 40px; padding-top: 5px; padding-left: 5px;"><img id="dark-light" src="assets/image/moon.png" style="width: 4vh; cursor: pointer;" alt="" onclick="change_mode()"></div>
+            <a id="nav_title" class="navbar-brand koodak nav-title" dir="rtl">گلخونه</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" style="width: 56px; height: 40px;">
+                 <img src="assets/image/menu.png" alt="" style="width: 70%; height: 70%;">
+            </button>
+            <div class="collapse navbar-collapse ms-3" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link koodak active" href="/">وضعيت</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/output">خروجي ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/control">کنترل دستی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/settings">تنظيمات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/about">درباره</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex flex-wrap justify-content-center py-2">
+        <div id="item" class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end m-2" style="background-color: #f3f7f8;">
+            <center>
+                <img id="temp_pic" src="assets/image/temperature.png" alt="" style="width: 3.3vh; height: 3.3vh;">
+                <span id="title" class="item-title" dir="rtl">دما:</span>
+            </center>
+            <p id="temperature" class="mb-1 item-value"></p>
+        </div>
+        <div id="item" class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end m-2" style="background-color: #f3f7f8;">
+            <center>
+                <img id="humidity_pic" src="assets/image/humidity.png" alt="" style="width: 2.9; height: 2.9vh;">
+                <span id="title" class="item-title" dir="rtl">رطوبت:</span>
+            </center>
+            <p id="humidity" class="mb-1 item-value"></p>
+        </div>
+        <div id="item" class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end m-2" style="background-color: #f3f7f8;">
+            <center>
+                <img id="bright_pic" src="assets/image/brightness.png" alt="" style="width: 3vh; height: 3vh;">
+                <span id="title" class="item-title" dir="rtl">نور:</span>
+            </center>
+            <p id="brightness" class="mb-1 item-value"></p>
+        </div>
+        <div id="item" class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end m-2" style="background-color: #f3f7f8;">
+            <center>
+                <img id="uptime_pic" src="assets/image/uptime.png" alt="" style="width: 2.6vh; height: 2.5vh;">
+                <span id="title" class="item-title" dir="rtl">زمان به کار:</span>
+            </center>
+            <p id="uptime" class="mb-1 item-value"></p>
+        </div>
+        <div id="item" class="px-3 py-2 col-cu shadow-sm rounded-5 text-end m-2" style="background-color: #f3f7f8;">
+            <center>
+                <img id="graph1_pic" src="assets/image/graph.png" alt="" style="width: 2.7vh; height: 2.7vh;">
+                <span id="title" class="item-title" dir="rtl">بيشينه و کمينه دما:</span>
+            </center>
+            <p id="min_max_temperature" class="mb-1 item-value"></p>
+            
+        </div>
+        <div id="item" class="px-3 py-2 col-cu shadow-sm rounded-5 text-end m-2" style="background-color: #f3f7f8;">
+            <center>
+                <img id="graph2_pic" src="assets/image/graph.png" alt="" style="width: 2.7vh; height: 2.7vh;">
+                <span id="title" class="item-title" dir="rtl">بيشينه و کمينه رطوبت:</span>
+            </center>
+            <p id="min_max_humidity" class="mb-1 item-value">40% &nbsp; 70%</p>
+        </div>
+    </div>
+</body>
+
+</html>
