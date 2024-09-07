@@ -26,6 +26,7 @@ bool fog_maker = false;
 bool fan = false;
 bool bulb = false;
 bool water_pump = false;
+bool period = false;
 int temperature = 0;
 int humidity = 0;
 short brightness = 0;
@@ -34,6 +35,10 @@ short min_temperature = 150;
 short max_temperature = -50;
 short min_humidity = 100;
 short max_humidity = 0;
+short old_min_temperature = 150;
+short old_max_temperature = -50;
+short old_min_humidity = 100;
+short old_max_humidity = 0;
 short old_hour = 0;
 
 void setup() {
@@ -285,6 +290,33 @@ void loop() {
       min_humidity = humidity;
     if (humidity > max_humidity && humidity <= 100 && humidity >= 0)
       max_humidity = humidity;
+    old_min_temperature = min_temperature;
+    old_max_temperature = max_temperature;
+    old_min_humidity = min_humidity;
+    old_max_humidity = max_humidity;
+  }
+  else if (uptime % 24 == 0 && period == false) {
+    min_temperature = old_min_temperature;
+    max_temperature = old_max_temperature;
+    min_humidity = old_min_humidity;
+    max_humidity = old_max_humidity;
+    old_min_temperature = 150;
+    old_max_temperature = -50;
+    old_min_humidity = 100;
+    old_max_humidity = 0;
+    period = true;
+  }
+  else {
+    if (temperature < old_min_temperature && temperature <= 150 && temperature >= -50)
+      old_min_temperature = temperature;
+    if (temperature > old_max_temperature && temperature <= 150 && temperature >= -50)
+      old_max_temperature = temperature;
+    if (humidity < old_min_humidity && humidity <= 100 && humidity >= 0)
+      old_min_humidity = humidity;
+    if (humidity > old_max_humidity && humidity <= 100 && humidity >= 0)
+      old_max_humidity = humidity;
+    if (uptime % 24 != 0 && period == true)
+      period = false;
   }
   delay(250);
 }
