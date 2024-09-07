@@ -1,3 +1,0 @@
-ap_name=Golkhune
-ap_password=
-
