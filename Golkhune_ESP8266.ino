@@ -69,6 +69,9 @@ void setup() {
   server.on("/control", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/control.html", String(), false);
   });
+  server.on("/settings", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(SPIFFS, "/settings.html", String(), false);
+  });
   server.on("/heater", HTTP_GET, [](AsyncWebServerRequest * request) {
     if (heater == true)
       request->send_P(200, "text/plain", String("on").c_str());
@@ -258,6 +261,12 @@ void setup() {
   });
   server.on("/assets/image/power2.png", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/assets/image/power2.png", "image/png");
+  });
+  server.on("/assets/image/wifi.png", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(SPIFFS, "/assets/image/wifi.png", "image/png");
+  });
+  server.on("/assets/image/wifi2.png", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(SPIFFS, "/assets/image/wifi2.png", "image/png");
   });
   server.on("/assets/font/B-Koodak.ttf", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/assets/font/B-Koodak.ttf", "application/x-font-ttf");

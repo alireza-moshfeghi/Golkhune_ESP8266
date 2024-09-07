@@ -36,6 +36,12 @@
             font-size: 3.2vh;
             font-weight: bold;
         }
+        .item-lable {
+            font-family: 'Koodak', cursive;
+            color: gray;
+            font-size: 2.9vh;
+            font-weight: 400;
+        }
         @media (max-width: 575.98px) {
             .nav-title {
                 font-size: 25px;
@@ -101,92 +107,7 @@
                 stat = false;
             }
         }
-        function bulb_btn() {
-            var stat = document.getElementById("bulb_stat");
-            if (stat.checked) {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 0) {
-                        alert("ارتباط با ماژول برقرار نمی باشد.");
-                        stat.checked = !stat.checked;
-                    }
-                };
-                xhttp.open("GET", "/bulb?status=on", true);
-                xhttp.send();
-            }
-            else {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 0) {
-                        alert("ارتباط با ماژول برقرار نمی باشد.");
-                        stat.checked = !stat.checked;
-                    }
-                };
-                xhttp.open("GET", "/bulb?status=off", true);
-                xhttp.send();
-            }
-        }
-        function water_pump_btn() {
-            var stat = document.getElementById("water_pump_stat");
-            if (stat.checked) {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 0) {
-                        alert("ارتباط با ماژول برقرار نمی باشد.");
-                        stat.checked = !stat.checked;
-                    }
-                };
-                xhttp.open("GET", "/water_pump?status=on", true);
-                xhttp.send();
-            }
-            else {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 0) {
-                        alert("ارتباط با ماژول برقرار نمی باشد.");
-                        stat.checked = !stat.checked;
-                    }
-                };
-                xhttp.open("GET", "/water_pump?status=off", true);
-                xhttp.send();
-            }
-        }
-        function bulb_refresh() {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.responseText == "on")
-                    document.getElementById("bulb_stat").checked= true;
-                else if (this.responseText == "off")
-                    document.getElementById("bulb_stat").checked= false;
-                document.getElementById("nav_title").innerHTML = "گلخونه";
-            }
-            else if (this.readyState == 4 && this.status == 0)
-                document.getElementById("nav_title").innerHTML = "درحال اتصال...";
-            };
-            xhttp.open("GET", "/bulb", true);
-            xhttp.send();
-        }
-        function water_pump_refresh() {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.responseText == "on")
-                    document.getElementById("water_pump_stat").checked= true;
-                else if (this.responseText == "off")
-                    document.getElementById("water_pump_stat").checked= false;
-                document.getElementById("nav_title").innerHTML = "گلخونه";
-            }
-            else if (this.readyState == 4 && this.status == 0) 
-                document.getElementById("nav_title").innerHTML = "درحال اتصال...";
-            };
-            xhttp.open("GET", "/water_pump", true);
-            xhttp.send();
-        }
-        setInterval(bulb_refresh, 1000);
-        setInterval(water_pump_refresh, 1000);
-        window.onload=bulb_refresh();
-        window.onload=water_pump_refresh();
+        
     </script>
 </head>
 
@@ -207,10 +128,10 @@
                         <a class="nav-link koodak" href="/output">خروجي ها</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link koodak active" href="/control">کنترل دستی</a>
+                        <a class="nav-link koodak" href="/control">کنترل دستي</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link koodak" href="/settings">تنظيمات</a>
+                        <a class="nav-link koodak active" href="/settings">تنظيمات</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link koodak" href="/about">درباره</a>
@@ -222,24 +143,17 @@
     <div class="d-flex flex-wrap justify-content-center py-2">
         <div id="item" class="px-3 py-2 col-cu shadow-sm rounded-5 text-end m-2" style="background-color: #f3f7f8;">
             <center>
-                <img id="power_pic" src="assets/image/power.png" alt="" style="width: 2.8vh; height: 2.8vh;">
-                <span id="title" class="item-title" dir="rtl">کليد چراغ:</span>
+                <img id="wifi_pic" src="assets/image/wifi.png" alt="" style="width: 2.8vh; height: 2.8vh;">
+                <span id="title" class="item-title" dir="rtl">نقطه دسترسي:</span>
                 <br>
-                <label class="switch" style="margin: 1vh 0;">
-                    <input id="bulb_stat" type="checkbox" onchange="bulb_btn()">
-                    <span id="bulb" class="slider round"></span>
-                </label>
-            </center>
-        </div>
-        <div id="item" class="px-3 py-2 col-cu shadow-sm rounded-5 text-end m-2" style="background-color: #f3f7f8;">
-            <center>
-                <img id="power_pic" src="assets/image/power.png" alt="" style="width: 2.8vh; height: 2.8vh;">
-                <span id="title" class="item-title" dir="rtl">کليد پمپ آب:</span>
-                <br>
-                <label class="switch" style="margin: 1vh 0;">
-                    <input id="water_pump_stat" type="checkbox" onchange="water_pump_btn()">
-                    <span id="water_pump" class="slider round"></span>
-                </label>
+                <form action="/" method="post" dir="rtl" class="mt-2">
+                    <label for="ap_name" class="item-lable ms-1 me-2">نام شبکه:</label>
+                    <input id="ap_name" type="text" class="form-control" style="display: inline-block; width: 60%;" dir="ltr"><br>
+                    <label for="ap_password" class="item-lable ms-1">کلمه عبور:</label>
+                    <input id="ap_password" type="text" class="form-control mt-2" style="display: inline-block; width: 60%;" dir="ltr"><br>
+                    <input type="submit" class="btn mt-4 mb-3 ms-1 koodak shadow-sm" style="background-color: #66cdaa; color: white; width: 30%;" value="ذخيره">
+                    <button class="btn mt-4 mb-3 koodak shadow-sm" style="background-color: #66cdaa; color: white; width: 30%;">بازنشاني</button>
+                </form>
             </center>
         </div>
     </div>
