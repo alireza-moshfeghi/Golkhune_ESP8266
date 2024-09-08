@@ -38,15 +38,10 @@ NodeMCU:
 ![nodemcu](image/nodemcu.jpg)
 
 ## Necessary equipment:
-Wemos D1 or Nodemcu development board
-
-DHT22 temperature and humidity sensor
-
-4-channel and 2-channel relay module
-
-Photocell light resistor
-
-4.7kΩ and 10kΩ resistor
-
-Breadboard jumper wire
+- Wemos D1 or Nodemcu development board
+- DHT22 temperature and humidity sensor
+- 4-channel and 2-channel relay module
+- Photocell light resistor
+- 4.7kΩ and 10kΩ resistor
+- Breadboard jumper wire
 
