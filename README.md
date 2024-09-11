@@ -37,6 +37,10 @@ Wemos D1 mini:
 NodeMCU:
 ![nodemcu](image/nodemcu.jpg)
 
+> **Note:** For consumers with coils such as motors, it is better to use a snubber circuit to prevent induced voltage.
+
+![snubber](image/snubber.png)
+
 ## Necessary equipment:
 - Wemos D1 or Nodemcu development board
 - DHT22 temperature and humidity sensor
