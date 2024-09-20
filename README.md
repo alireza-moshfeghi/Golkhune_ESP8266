@@ -24,7 +24,7 @@ This middleware can automatically control the temperature and humidity of the gr
 
 6-After middleware the firmware on the module, the **Golkhune** access point will appear in the list of wireless networks in your system, connect to it.
 
-<img src='image/ap.png' alt='access_point'>
+<img src='image/ap.png' alt='access_point' style='width: 400px;'>
 
 7-Open your web browser and type the address **192.168.4.1** in the address bar to enter the middleware panel.
 
@@ -53,7 +53,7 @@ This middleware can automatically control the temperature and humidity of the gr
 
 <div style='display: flex;'>
 
-<img src='image/screenshot_1.jpg' style='margin-right: 3vh;'>
+<img src='image/screenshot_1.jpg' style='margin-right: 5vh;'>
 
 <img src='image/screenshot_2.jpg'>
 
