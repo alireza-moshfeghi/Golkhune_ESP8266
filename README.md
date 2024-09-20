@@ -30,6 +30,16 @@ This middleware can automatically control the temperature and humidity of the gr
 
 <img src='image/panel.jpg' alt='panel'>
 
+## Middleware panel:
+
+<div style='display: flex;'>
+
+<img src='image/screenshot_1.jpg' style='margin-right: 3vh;'>
+
+<img src='image/screenshot_2.jpg'>
+
+</div>
+
 ## How to connect:
 **Wemos D1 mini:**
 <img src='image/wemos.jpg' alt='wemos_d1'>
@@ -39,7 +49,11 @@ This middleware can automatically control the temperature and humidity of the gr
 
 > **Note:** For consumers with coils such as motors, it is better to use a snubber circuit to prevent induced voltage.
 
+<div align='center'>
+
 <img src='image/snubber.png' alt='snubber'>
+
+</div>
 
 ## Necessary equipment:
 - Wemos D1 or Nodemcu development board
@@ -48,13 +62,3 @@ This middleware can automatically control the temperature and humidity of the gr
 - Photocell light resistor
 - 4.7kΩ and 10kΩ resistor
 - Breadboard jumper wire
-
-## Middleware panel:
-
-<div style='display: flex;'>
-
-<img src='image/screenshot_1.jpg' style='margin-right: 5vh;'>
-
-<img src='image/screenshot_2.jpg'>
-
-</div>
