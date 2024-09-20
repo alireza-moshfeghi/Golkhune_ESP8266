@@ -28,7 +28,7 @@ This middleware can automatically control the temperature and humidity of the gr
 
 7-Open your web browser and type the address **192.168.4.1** in the address bar to enter the middleware panel.
 
-![panel](image/panel.png)
+![panel](image/panel.jpg)
 
 > **Note:** To edit the open source project, be sure to download the required libraries from [here](https://github.com/alireza-moshfeghi/Golkhune_ESP8266/tree/main/libraries) and install them on Arduino IDE.
 
@@ -51,3 +51,6 @@ NodeMCU:
 - 4.7kΩ and 10kΩ resistor
 - Breadboard jumper wire
 
+## Middleware panel:
+
+![](image/screenshot_1.jpg) ![](image/screenshot_2.jpg)
