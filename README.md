@@ -1,5 +1,5 @@
 <p align='center'>
-    <img src='image/logo.png' style='width: 50vh;'>
+    <img src='image/logo.png' style='width: 45vh;'>
 </p>
 
 ## Description:
