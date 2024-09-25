@@ -14,19 +14,21 @@ This middleware can automatically control the temperature and humidity of the gr
 
 <img src='image/driver.png' alt='ch341_driver' width='426px'>
 
-3-Download the **Flash download tool** program from [here](https://github.com/alireza-moshfeghi/Golkhune_ESP8266/blob/main/Flash_download_tool.zip) and apply the following settings.
+3-Download the **Flash download tool** program from [here](https://github.com/alireza-moshfeghi/Golkhune_ESP8266/blob/main/Flash_download_tool.zip). 
+
+4-Connect your development board to the system and apply the following settings.
 
 <img src='image/config.png' alt='config_tab'>
 
-4-Connect your development board to the system and click on the **START** button and wait for the uploading process to finish.
+5-Click on the **START** button and wait for the uploading process to finish.
 
 <img src='image/finish.png' alt='finish'>
 
-5-After the middleware is uploaded, restart the development board and connect to the access point of the **Golkhune**.
+6-After the middleware is uploaded, restart the development board and connect to the access point of the **Golkhune**.
 
 <img src='image/ap.png' alt='access_point'>
 
-6-Open your web browser and type the address **192.168.4.1** in the address bar to enter the middleware panel.
+7-Open your web browser and type the address **192.168.4.1** in the address bar to enter the middleware panel.
 
 <img src='image/panel.jpg' alt='panel'>
 
@@ -72,7 +74,7 @@ Golkhune> status
 Temperature: 28°C
 Humidity: 53%
 Brightness: 67%
-Uptime: 0H
+Uptime: 26H
 Minimum temperature: 25°C
 Maximum temperature: 31°C
 Minimum humidity: 54%
