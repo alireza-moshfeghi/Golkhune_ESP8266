@@ -16,6 +16,8 @@ This middleware can automatically control the temperature and humidity of the gr
 
 3-Download the **Flash download tool** program from [here](https://github.com/alireza-moshfeghi/Golkhune_ESP8266/blob/main/Flash_download_tool.zip). 
 
+<img src='image/flasher.png' alt='flasher'>
+
 4-Connect your development board to the system and apply the following settings.
 
 <img src='image/config.png' alt='config_tab'>
