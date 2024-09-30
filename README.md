@@ -53,11 +53,9 @@ This middleware can automatically control the temperature and humidity of the gr
 
 > **Note:** For consumers with coils such as motors, it is better to use a snubber circuit to prevent induced voltage.
 
-<div style='display: flex;'>
+<div align='center'>
 
 <img src='image/snubber.png' alt='snubber'>
-
-<img src='image/snubber.jpg' alt='snubber'>
 
 </div>
 
