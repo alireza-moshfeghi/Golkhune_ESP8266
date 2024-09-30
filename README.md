@@ -1,4 +1,3 @@
-#
 <p align='center'>
     <img src='image/logo.png' style='width: 45vh;'>
 </p>
