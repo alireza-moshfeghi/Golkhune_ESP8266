@@ -66,7 +66,7 @@ This middleware can automatically control the temperature and humidity of the gr
 - DHT22 temperature and humidity sensor
 - 4-channel and 2-channel relay module
 - Photocell light resistor
-- 4.7kΩ and 10kΩ resistor
+- 10kΩ resistor 1/4 Watt
 - Breadboard jumper wire
 
 ## Monitor serial commands:
