@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!-- Setting the page theme name (dark or light) -->
+<html data-bs-theme="%THEME%">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Setting the page theme color (#1a344d or #66cdaa) -->
+    <meta name="theme-color" content="%THEME-COLOR%">
+    <title>Golkhune | گلخونه</title>
+    <!-- Bootstrap styling file -->
+    <link rel="stylesheet" href="assets/style/bootstrap.css">
+    <!-- Fonts file -->
+    <link rel="stylesheet" href="assets/style/font.css">
+    <!-- Bootstrap JavaScript file -->
+    <script src="assets/script/bootstrap.js"></script>
+    <!-- Start internal script -->
+    <script>
+        var AP_name = "";  //Save the previous value of the access point name
+        var AP_pass = "";  //Save the previous value of the access point password
+        var min_temperature = "";  //Save the previous value of the minimum temperature
+        var max_temperature = "";  //Save the previous value of the maximum temperature
+        var min_humidity = "";  //Save the previous value of the minimum humidity
+        var max_humidity = "";  //Save the previous value of the maximum humidity
+        var delay_time = 0;  //Save the previous value of the delay time
+        var scale = 0;  //Save the previous name of the temperature scale
+        function change_mode() {  //For the button to change the page theme
+            if (document.documentElement.getAttribute('data-bs-theme') == "dark") {  //If the theme in use was dark
+                document.documentElement.setAttribute('data-bs-theme', 'light');  //Change the page theme to light
+                document.getElementsByTagName('meta')["theme-color"].content = "#66cdaa";  //Change the page theme color to light
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/dark_mode?status=off", true);  //Send new theme status to module
+                xhttp.send();
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme', 'dark');  //Change the page theme to dark
+                document.getElementsByTagName('meta')["theme-color"].content = "#1a344d";  //Change the page theme color to dark
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/dark_mode?status=on", true);  //Send new theme status to module
+                xhttp.send();
+            }
+        }
+        function save_btn() {  //To save the form
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200)  //Receive a response from the module side
+                    alert(this.responseText);  //Display answer to the user
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    alert("Connection with the module is not established.");  //Display the message of no connection with the module
+            };
+            var url = "/settings?ap_name=" + document.getElementById("ap_name").value + "&ap_pass=" + document.getElementById("ap_pass").value;
+            url += "&min_temperature=" + document.getElementById("min_temperature").value + "&max_temperature=" + document.getElementById("max_temperature").value;
+            url += "&min_humidity=" + document.getElementById("min_humidity").value + "&max_humidity=" + document.getElementById("max_humidity").value;
+            url += "&delay_time=" + document.getElementById("delay_time").value + "&scale=" + document.getElementById("scale").value;
+            xhttp.open("GET", url, true);  //Send new access point settings to module
+            xhttp.send();
+        }
+        function reset_btn() {  //To reset the form
+            document.getElementById("ap_name").value = AP_name;  //Return the access point name field to the previous state
+            document.getElementById("ap_pass").value = AP_pass;  //Return the access point password field to the previous state
+            document.getElementById("min_temperature").value = min_temperature;  //Return the minimum temperature field to the previous state
+            document.getElementById("max_temperature").value = max_temperature;  //Return the maximum temperature field to the previous state
+            document.getElementById("min_humidity").value = min_humidity;  //Return the minimum humidity field to the previous state
+            document.getElementById("max_humidity").value = max_humidity;  //Return the maximum humidity field to the previous state
+            document.getElementById("delay_time").selectedIndex = delay_time;  //Return the delay time to the previous state
+            document.getElementById("scale").selectedIndex = scale;  //Return the temperature scale name to the previous state
+        }
+        function status_refresh() {  //To update the status (online or offline)
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200)  //Receive a response from the module side
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/dark_mode", true);  //Get dark mode status (on or off)
+            xhttp.send();
+        }
+        function ap_name_get() {  //To get access point name
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    AP_name = this.responseText;  //Put the value in the access point name variable
+                    document.getElementById("ap_name").value = AP_name;  //Put the value in the access point name field
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/ap_name", true);  //Get access point name value
+            xhttp.send();
+        }
+        function ap_pass_get() {  //To get access point password
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    AP_pass = this.responseText;  //Put the value in the access point password variable
+                    document.getElementById("ap_pass").value = AP_pass;  //Put the value in the access point password field
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/ap_pass", true);  //Get access point password value
+            xhttp.send();
+        }
+        function min_temperature_get() {  //To get minimum temperature value
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    min_temperature = this.responseText;  //Put the value in the minimum temperature variable
+                    document.getElementById("min_temperature").value = min_temperature;  //Put the value in the minimum temperature field
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/set_min_temperature", true);  //Get minimum temperature value
+            xhttp.send();
+        }
+        function max_temperature_get() {  //To get maximum temperature value
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    max_temperature = this.responseText;  //Put the value in the maximum temperature variable
+                    document.getElementById("max_temperature").value = max_temperature;  //Put the value in the maximum temperature field
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/set_max_temperature", true);  //Get maximum temperature value
+            xhttp.send();
+        }
+        function min_humidity_get() {  //To get minimum humidity value
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    min_humidity = this.responseText;  //Put the value in the minimum humidity variable
+                    document.getElementById("min_humidity").value = min_humidity;  //Put the value in the minimum humidity field
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/set_min_humidity", true);  //Get minimum humidity value
+            xhttp.send();
+        }
+        function max_humidity_get() {  //To get maximum humidity value
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    max_humidity = this.responseText;  //Put the value in the maximum humidity variable
+                    document.getElementById("max_humidity").value = max_humidity;  //Put the value in the maximum humidity field
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/set_max_humidity", true);  //Get maximum humidity value
+            xhttp.send();
+        }
+        function delay_time_get() {  //To get delay time value
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    if (this.responseText == "0") {
+                        document.getElementById("delay_time").selectedIndex = 0;  //0 seconds item selection
+                        delay_time = 0;  //Save the selected item
+                    }
+                    else if (this.responseText == "5") {
+                        document.getElementById("delay_time").selectedIndex = 1;  //5 seconds item selection
+                        delay_time = 1;  //Save the selected item
+                    }
+                    else if (this.responseText == "10") {
+                        document.getElementById("delay_time").selectedIndex = 2;  //10 seconds item selection
+                        delay_time = 2;  //Save the selected item
+                    }
+                    else if (this.responseText == "15") {
+                        document.getElementById("delay_time").selectedIndex = 3;  //15 seconds item selection
+                        delay_time = 3;  //Save the selected item
+                    }
+                    else if (this.responseText == "20") {
+                        document.getElementById("delay_time").selectedIndex = 4;  //20 seconds item selection
+                        delay_time = 4;  //Save the selected item
+                    }
+                    else {
+                        document.getElementById("delay_time").selectedIndex = -1;  //When no item was selected
+                        delay_time = -1;  //Save the selected item
+                    }
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/delay_time", true);  //Get delay time value
+            xhttp.send();
+        }
+        function scale_get() {  //To get temperature scale name
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    if (this.responseText == "celsius") {
+                        document.getElementById("scale").selectedIndex = 0;  //celsius item selection
+                        scale = 0;  //Save the selected item
+                    }
+                    else if (this.responseText == "fahrenheit") {
+                        document.getElementById("scale").selectedIndex = 1;  //fahrenheit item selection
+                        scale = 1;  //Save the selected item
+                    }
+                    else {
+                        document.getElementById("scale").selectedIndex = -1;  //When no item was selected
+                        scale = -1;  //Save the selected item
+                    }
+                    document.getElementById("nav_title").innerHTML = "Golkhune";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "Connecting...";  //Show connecting message
+            };
+            xhttp.open("GET", "/scale", true);  //Get temperature scale name
+            xhttp.send();
+        }
+        
+        setInterval(status_refresh, 1000);  //Update status every one second
+        window.onload = ap_name_get();  //Get access point name when page is loaded
+        window.onload = ap_pass_get();  //Get access point password when page is loaded
+        window.onload = min_temperature_get();  //Get minimum temperature value when page is loaded
+        window.onload = max_temperature_get();  //Get maximum temperature value when page is loaded
+        window.onload = min_humidity_get();  //Get minimum humidity value when page is loaded
+        window.onload = max_humidity_get();  //Get maximum humidity value when page is loaded
+        window.onload = delay_time_get();  //Get delay time value when page is loaded
+        window.onload = scale_get();  //Get temperature scale name when page is loaded
+    </script>
+    <!-- End internal script -->
+</head>
+
+<body style="background-color: var(--bs-body);">
+    <!-- Start navbar -->
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: var(--bs-navbar);">
+        <div class="container-fluid">
+            <div style="width: 56px; height: 40px; padding-top: 5px; padding-left: 5px;"><img
+                    style="width: 4vh; cursor: pointer; content: var(--bs-mode);" onclick="change_mode()"></div>
+            <a id="nav_title" class="navbar-brand nunito nav-title"
+                style="font-size: 3vh; font-weight: bold; padding-top: 0.25vh;" dir="ltr">Golkhune</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <img class="menu_btn" style="content: var(--bs-menu);">
+            </button>
+            <div class="collapse navbar-collapse ms-3" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link nunito" href="/">Status</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nunito" href="/output">Outpunts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nunito" href="/control">Manual control</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nunito active" href="/settings">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nunito" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nunito" href="/language">Language</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End navbar -->
+    <!-- Start items holder -->
+    <div class="d-flex flex-wrap justify-content-center py-3">
+        <!-- Start access point -->
+        <div class="px-3 py-2 col-10 col-lg-4 shadow-sm rounded-5 text-end" style="background-color: var(--bs-item);">
+            <center>
+                <form action="" dir="ltr" class="mt-1 mb-2">
+                    <span class="item-title-en nunito" style="color: var(--bs-title);">Access Point:</span>
+                    <img style="width: 2.4vh; height: 2.4vh; content: var(--bs-wifi);">
+                    <hr class="mt-1 mb-3 mx-2" style="color: var(--bs-value);">
+                    <div class="d-flex flex-column justify-content-center mb-3 w-85">
+                        <label for="ap_name" class="item-lable-en nunito ms-1"
+                            style="color: var(--bs-value); text-align: left;">Wifi name:</label>
+                        <input id="ap_name" type="text" class="form-control" dir="ltr">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center mb-3 w-85">
+                        <label for="ap_name" class="item-lable-en nunito ms-1"
+                            style="color: var(--bs-value); text-align: left;">Password:</label>
+                        <input id="ap_pass" type="text" class="form-control" style="display: inline-block;"
+                            dir="ltr">
+                    </div>
+                    <span class="item-title-en nunito" style="color: var(--bs-title);">Set temperature:</span>
+                    <img style="width: 2.6vh; height: 2.6vh; content: var(--bs-temperature);">
+                    <hr class="mt-1 mb-3 mx-3" style="color: var(--bs-value);">
+                    <div class="d-flex flex-column justify-content-center mb-3 w-85">
+                        <label for="ap_name" class="item-lable-en nunito ms-1"
+                            style="color: var(--bs-value); text-align: left;">Minimum temperature:</label>
+                        <input id="min_temperature" type="number" min='-50' max='150' class="form-control"
+                            style="display: inline;" dir="ltr">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center mb-3 w-85">
+                        <label for="ap_name" class="item-lable-en nunito ms-1"
+                            style="color: var(--bs-value); text-align: left;">Maximum temperature:</label>
+                        <input id="max_temperature" type="number" min='-50' max='150' class="form-control"
+                            style="display: inline;" dir="ltr">
+                    </div>
+                    <span class="item-title-en nunito" style="color: var(--bs-title);">Set humidity:</span>
+                    <img style="width: 2.4vh; height: 2.4vh; content: var(--bs-humidity);">
+                    <hr class="mt-1 mb-3 mx-3" style="color: var(--bs-value);">
+                    <div class="d-flex flex-column justify-content-center mb-3 w-85">
+                        <label for="ap_name" class="item-lable-en nunito ms-1"
+                            style="color: var(--bs-value); text-align: left;">Minimum Humidity:</label>
+                        <input id="min_humidity" type="number" min='0' max='100' class="form-control"
+                            style="display: inline;" dir="ltr">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center mb-3 w-85">
+                        <label for="ap_name" class="item-lable-en nunito ms-1"
+                            style="color: var(--bs-value); text-align: left;">Maximum Humidity:</label>
+                        <input id="max_humidity" type="number" min='0' max='100' class="form-control w-43"
+                            style="display: inline;" dir="ltr">
+                    </div>
+                    <span class="item-title-en nunito" style="color: var(--bs-title);">More settings:</span>
+                    <img style="width: 2.6vh; height: 2.6vh; content: var(--bs-settings);">
+                    <hr class="mt-1 mb-3 mx-3" style="color: var(--bs-value);">
+                    <div class="d-flex flex-column justify-content-center mb-3 w-85">
+                        <label for="ap_name" class="item-lable-en nunito ms-1"
+                            style="color: var(--bs-value); text-align: left;">Delay time:</label>
+                        <select id="delay_time" class="form-select" dir="ltr">
+                            <option value="0">No delay</option>
+                            <option value="5">5 seconds</option>
+                            <option value="10">10 seconds</option>
+                            <option value="15">15 seconds</option>
+                            <option value="20">20 seconds</option>
+                        </select>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center mb-3 w-85">
+                        <label for="ap_name" class="item-lable-en nunito ms-1"
+                            style="color: var(--bs-value); text-align: left;">Temp scale:</label>
+                        <select id="scale" class="form-select" dir="ltr">
+                            <option value="celsius">Celsius</option>
+                            <option value="fahrenheit">Fahrenheit</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn mt-3 mb-3 ms-1 py-2 nunito shadow-sm w-30 fw-bold"
+                        style="background-color: var(--bs-title); color: white;" onclick="reset_btn()">Reset</button>
+                    <button type="button" class="btn mt-3 mb-3 py-2 nunito shadow-sm w-30 fw-bold"
+                        style="background-color: var(--bs-title); color: white;" onclick="save_btn()">Save</button>
+                </form>
+            </center>
+        </div>
+        <!-- End access point -->
+    </div>
+    <!-- End items holder -->
+</body>
+
+</html>

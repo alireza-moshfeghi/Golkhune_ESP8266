@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!-- Setting the page theme name (dark or light) -->
+<html data-bs-theme="%THEME%">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Setting the page theme color (#1a344d or #66cdaa) -->
+    <meta name="theme-color" content="%THEME-COLOR%">
+    <title>Golkhune | گلخونه</title>
+    <!-- Bootstrap styling file -->
+    <link rel="stylesheet" href="assets/style/bootstrap.css">
+    <!-- Fonts file -->
+    <link rel="stylesheet" href="assets/style/font.css">
+    <!-- Bootstrap JavaScript file -->
+    <script src="assets/script/bootstrap.js"></script>
+    <!-- Start internal script -->
+    <script>
+        function change_mode() {  //For the button to change the page theme
+            if (document.documentElement.getAttribute('data-bs-theme') == "dark") {  //If the theme in use was dark
+                document.documentElement.setAttribute('data-bs-theme', 'light');  //Change the page theme to light
+                document.getElementsByTagName('meta')["theme-color"].content = "#66cdaa";  //Change the page theme color to light
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/dark_mode?status=off", true);  //Send new theme status to module
+                xhttp.send();
+            }
+            else {
+                document.documentElement.setAttribute('data-bs-theme', 'dark');  //Change the page theme to dark
+                document.getElementsByTagName('meta')["theme-color"].content = "#1a344d";  //Change the page theme color to dark
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/dark_mode?status=on", true);  //Send new theme status to module
+                xhttp.send();
+            }
+        }
+        function heater_refresh() {  //To update status of the heater
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    document.getElementById("heater").innerHTML = this.responseText;  //Put the new value in the item
+                    document.getElementById("nav_title").innerHTML = "گلخونه";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "درحال اتصال...";  //Show connecting message
+            };
+            xhttp.open("GET", "/heater", true);  //Get heater status (on or off)
+            xhttp.send();
+        }
+        function cooler_refresh() {  //To update status of the cooler
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    document.getElementById("cooler").innerHTML = this.responseText;  //Put the new value in the item
+                    document.getElementById("nav_title").innerHTML = "گلخونه";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "درحال اتصال...";  //Show connecting message
+            };
+            xhttp.open("GET", "/cooler", true);  //Get cooler status (on or off)
+            xhttp.send();
+        }
+        function fog_maker_refresh() {  //To update status of the fog maker
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    document.getElementById("fog_maker").innerHTML = this.responseText;  //Put the new value in the item
+                    document.getElementById("nav_title").innerHTML = "گلخونه";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "درحال اتصال...";  //Show connecting message
+            };
+            xhttp.open("GET", "/fog_maker", true);  //Get fog maker status (on or off)
+            xhttp.send();
+        }
+        function fan_refresh() {  //To update status of the fan
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    document.getElementById("fan").innerHTML = this.responseText;  //Put the new value in the item
+                    document.getElementById("nav_title").innerHTML = "گلخونه";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "درحال اتصال...";  //Show connecting message
+            };
+            xhttp.open("GET", "/fan", true);  //Get fan status (on or off)
+            xhttp.send();
+        }
+        function bulb_refresh() {  //To update status of the bulb
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    document.getElementById("bulb").innerHTML = this.responseText;  //Put the new value in the item
+                    document.getElementById("nav_title").innerHTML = "گلخونه";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "درحال اتصال...";  //Show connecting message
+            };
+            xhttp.open("GET", "/bulb", true);  //Get bulb status (on or off)
+            xhttp.send();
+        }
+        function water_pump_refresh() {  //To update status of the water pump
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    document.getElementById("water_pump").innerHTML = this.responseText;  //Put the new value in the item
+                    document.getElementById("nav_title").innerHTML = "گلخونه";  //Display the name of the project in navbar
+                }
+                else if (this.readyState == 4 && this.status == 0)  //If no response is received from the module side
+                    document.getElementById("nav_title").innerHTML = "درحال اتصال...";  //Show connecting message
+            };
+            xhttp.open("GET", "/water_pump", true);  //Get water pump status (on or off)
+            xhttp.send();
+        }
+        function error_refresh() {  //Show error
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  //Receive a response from the module side
+                    if (this.responseText != "")
+                        alert(this.responseText);
+                }
+            };
+            xhttp.open("GET", "/error", true);  //Get water pump status (on or off)
+            xhttp.send();
+        }
+        setInterval(heater_refresh, 1000);  //Update heater status every one second
+        setInterval(cooler_refresh, 1000);  //Update cooler status every one second
+        setInterval(fog_maker_refresh, 1000);  //Update fog maker status every one second
+        setInterval(fan_refresh, 1000);  //Update fan status every one second
+        setInterval(bulb_refresh, 1000);  //Update bulb status every one second
+        setInterval(water_pump_refresh, 1000);  //Update water pump status every one second
+        window.onload = heater_refresh();  //Update state of heater when the page is loaded
+        window.onload = cooler_refresh();  //Update state of cooler when the page is loaded
+        window.onload = fog_maker_refresh();  //Update state of fog maker when the page is loaded
+        window.onload = fan_refresh();  //Update state of fan when the page is loaded
+        window.onload = bulb_refresh();  //Update state of bulb when the page is loaded
+        window.onload = water_pump_refresh();  //Update state of water pump when the page is loaded
+        window.onload = error_refresh();  //For get error
+    </script>
+    <!-- End internal script -->
+</head>
+
+<body style="background-color: var(--bs-body);">
+    <!-- Start navbar -->
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: var(--bs-navbar);">
+        <div class="container-fluid">
+            <div style="width: 56px; height: 40px; padding-top: 5px; padding-left: 5px;"><img
+                    style="width: 4vh; cursor: pointer; content: var(--bs-mode);" onclick="change_mode()"></div>
+            <a id="nav_title" class="navbar-brand koodak nav-title" dir="rtl">گلخونه</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <img class="menu_btn" style="content: var(--bs-menu);">
+            </button>
+            <div class="collapse navbar-collapse ms-3" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/">وضعيت</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak active" href="/output">خروجي ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/control">کنترل دستی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/settings">تنظيمات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/about">درباره</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link koodak" href="/language">زبان</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End navbar -->
+    <!-- Start items holder -->
+    <div class="d-flex flex-wrap justify-content-center mt-2">
+        <div class="col-lg-1"></div>
+        <!-- Start heater status -->
+        <div class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end mx-2 my-2"
+            style="background-color: var(--bs-item);">
+            <center>
+                <img style="width: 3vh; height: 3vh; content: var(--bs-heater);">
+                <span class="item-title koodak" dir="rtl" style="color: var(--bs-title);">بخاري:</span>
+                <hr class="mt-1 mb-1 mx-2" style="color: var(--bs-value);">
+            </center>
+            <p id="heater" class="item-value mb-0" style="color: var(--bs-value);"></p>
+        </div>
+        <!-- End heater status -->
+
+        <!-- Start cooler status -->
+        <div class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end mx-2 my-2"
+            style="background-color: var(--bs-item);">
+            <center>
+                <img style="width: 3.2vh; height: 3.1vh; content: var(--bs-cooler);">
+                <span class="item-title koodak" dir="rtl" style="color: var(--bs-title);">کولر:</span>
+                <hr class="mt-1 mb-1 mx-2" style="color: var(--bs-value);">
+            </center>
+            <p id="cooler" class="item-value mb-0" style="color: var(--bs-value);"></p>
+        </div>
+        <!-- End cooler status -->
+
+        <!-- Start fog maker status -->
+        <div class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end mx-2 my-2"
+            style="background-color: var(--bs-item);">
+            <center>
+                <img style="width: 3vh; height: 3vh; content: var(--bs-fog_maker);">
+                <span class="item-title koodak" dir="rtl" style="color: var(--bs-title);">مه ساز:</span>
+                <hr class="mt-1 mb-1 mx-2" style="color: var(--bs-value);">
+            </center>
+            <p id="fog_maker" class="item-value mb-0" style="color: var(--bs-value);"></p>
+        </div>
+        <!-- End fog maker status -->
+
+        <!-- Start fan status -->
+        <div class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end mx-2 my-2"
+            style="background-color: var(--bs-item);">
+            <center>
+                <img style="width: 2.8vh; height: 2.8vh; content: var(--bs-fan);">
+                <span class="item-title koodak" dir="rtl" style="color: var(--bs-title);">تهويه:</span>
+                <hr class="mt-1 mb-1 mx-2" style="color: var(--bs-value);">
+            </center>
+            <p id="fan" class="item-value mb-0" style="color: var(--bs-value);"></p>
+        </div>
+        <!-- End fan status -->
+
+        <div class="col-lg-1"></div>
+
+        <!-- Start bulb status -->
+        <div class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end mx-2 my-2"
+            style="background-color: var(--bs-item);">
+            <center>
+                <img style="width: 3.1vh; height: 3.1vh; content: var(--bs-bulb);">
+                <span class="item-title koodak" dir="rtl" style="color: var(--bs-title);">چراغ:</span>
+                <hr class="mt-1 mb-1 mx-2" style="color: var(--bs-value);">
+            </center>
+            <p id="bulb" class="item-value mb-0" style="color: var(--bs-value);"></p>
+        </div>
+        <!-- End bulb status -->
+
+        <!-- Start water pump status -->
+        <div class="px-3 py-2 col-5 col-lg-2 shadow-sm rounded-5 text-end mx-2 my-2"
+            style="background-color: var(--bs-item);">
+            <center>
+                <img style="width: 3.2vh; height: 3.2vh; content: var(--bs-water_pump);">
+                <span class="item-title koodak" dir="rtl" style="color: var(--bs-title);">پمپ آب:</span>
+                <hr class="mt-1 mb-1 mx-2" style="color: var(--bs-value);">
+            </center>
+            <p id="water_pump" class="item-value mb-0" style="color: var(--bs-value);"></p>
+        </div>
+        <!-- End water pump status -->
+    </div>
+    <!-- End items holder -->
+</body>
+
+</html>
